@@ -32,7 +32,7 @@ xmlhttp.onreadystatechange = function() {
             var tittelHTML = ""+counter.title;
             var stedHTML = ""+counter.physicalDeliveryOfficeName;
             var selskapHTML = ""+counter.department;
-            if (counter.ipPhone==null) {
+            if (counter.ipPhone==undefined) {
               var telefonHTML = ""+counter.mobile;
             }
             else {

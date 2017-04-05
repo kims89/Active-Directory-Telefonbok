@@ -2,7 +2,6 @@ var ActiveDirectory = require('activedirectory');
 var fs = require('fs');
 var cron = require('node-cron');
 
-cron.schedule('0 0 * * *', function(){
   var config = { url: 'ldap://lab.intern',
                  baseDN: 'OU=Brukere,DC=lab,DC=intern',
                  username: 'srvc_ph@lab.intern',
@@ -43,4 +42,3 @@ cron.schedule('0 0 * * *', function(){
       console.log('findUsers: '+JSON.stringify(users));
     }
   });
-});
