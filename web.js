@@ -22,7 +22,9 @@ var options = {
 
 app.use(express.static('public'));
 
-app.get('/alle', function (req, res) {
+
+
+app.get('/sok', function (req, res) {
   fs.readFile(__dirname + '/bruker.json', 'utf8', function(err, data) {
       res.end(data);
       console.log(data);
@@ -58,6 +60,4 @@ var server = app.listen(80, function () {
 
   var host = server.address().address
   var port = server.address().port
-
-  console.log("Example app listening at http://%s:%s", host, port)
 });

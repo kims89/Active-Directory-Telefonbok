@@ -1,7 +1,9 @@
 var ActiveDirectory = require('activedirectory');
 var fs = require('fs');
 var cron = require('node-cron');
+
 cron.schedule('0 0 * * *', function(){
+  console.log(Date()+': Jobb starter');
   var config = { url: 'ldap://lab.intern',
                  baseDN: 'OU=Brukere,DC=lab,DC=intern',
                  username: 'srvc_ph@lab.intern',
@@ -10,13 +12,13 @@ cron.schedule('0 0 * * *', function(){
                                    user: [ 'mobile', 'title', 'company', 'department','physicalDeliveryOfficeName','ipPhone', 'sn', 'givenName', 'mail', 'userPrinicipalName','displayName' ]
                                  }
   }
-  var dataTime = new Date();
-  sumTime = dataTime.getHours();
+
   var ad = new ActiveDirectory(config);
   var groupName = 'Employees';
 
   ad.getUsersForGroup(groupName, function(err, users) {
     if (err) {
+      console.log(Date()+': Skjedde en feil. Ikke kontakt med Active Directory');
       console.log('ERROR: ' +JSON.stringify(err));
       return;
     }
@@ -35,11 +37,10 @@ cron.schedule('0 0 * * *', function(){
           if(err) {
             console.log(err);
           } else {
-            console.log("___Time is: "+sumTime);
-            console.log("JSON saved to " + outputFilename);
+            console.log(Date()+': JSON er lagret til ' + outputFilename);
           }
       });
-      console.log('findUsers: '+JSON.stringify(users));
+      console.log(Date()+': Jobb ferdig');
     }
   });
 });
