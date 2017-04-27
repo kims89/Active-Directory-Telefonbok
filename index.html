@@ -17,6 +17,13 @@
 <link rel="stylesheet" href="/js/easy-autocomplete.css">
 <link rel="stylesheet" href="/js/easy-autocomplete.themes.min.css">
 <script src="/js/jquery.easy-autocomplete.js"></script>
+<style>
+.eac-square input {
+  background-image: url("fig/icon_search.png");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+</style>
 </head>
 <script>
 
@@ -179,7 +186,12 @@ function searchJson(data) {
             list: {
               match: {
                 enabled: true
-              },
+              },showAnimation: {
+			          type: "fade"
+		          },
+		          hideAnimation: {
+			          type: "fade"
+		          },
               onClickEvent: function() {
                 var value = $("#provider-json").getSelectedItemData().displayName;
                 searchJson(value);
