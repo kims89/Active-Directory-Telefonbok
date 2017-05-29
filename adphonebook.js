@@ -2,12 +2,12 @@ var ActiveDirectory = require('activedirectory');
 var fs = require('fs');
 var cron = require('node-cron');
 
-cron.schedule('0 0 * * *', function(){
+//cron.schedule('0 0 * * *', function(){
   console.log(Date()+': Jobb starter');
-  var config = { url: 'ldap://lab.intern',
-                 baseDN: 'OU=Brukere,DC=lab,DC=intern',
-                 username: 'srvc_ph@lab.intern',
-                 password: 'Pa$$w0rd',
+  var config = { url: 'ldap://fjos.local',
+                 baseDN: 'OU=Brukere,DC=fjos,DC=local',
+                 username: 'telefonbokbruker@fjos.local',
+                 password: 'Password!',
                  attributes: {
                                    user: [ 'mobile', 'title', 'company', 'department','physicalDeliveryOfficeName','ipPhone', 'sn', 'givenName', 'mail', 'userPrinicipalName','displayName' ]
                                  }
@@ -43,4 +43,4 @@ cron.schedule('0 0 * * *', function(){
       console.log(Date()+': Jobb ferdig');
     }
   });
-});
+//});
