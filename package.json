@@ -1,0 +1,26 @@
+{
+  "name": "active-directory-telefonbok",
+  "version": "1.0.0",
+  "description": "Telefonbok basert på informasjon fra AD",
+  "main": "adphonebook.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kims89/Active-Directory-Telefonbok.git"
+  },
+  "author": "Kim Tore Kristensen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kims89/Active-Directory-Telefonbok/issues"
+  },
+  "homepage": "https://github.com/kims89/Active-Directory-Telefonbok#readme",
+  "dependencies": {
+    "activedirectory": "^0.7.2",
+    "express": "^4.15.3",
+    "fs": "0.0.1-security",
+    "node-cron": "^1.2.0",
+    "path": "^0.12.7"
+  }
+}

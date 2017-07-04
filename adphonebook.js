@@ -2,15 +2,16 @@ var ActiveDirectory = require('activedirectory');
 var fs = require('fs');
 var cron = require('node-cron');
 
-//cron.schedule('0 0 * * *', function(){
-  console.log(Date()+': Jobb starter');
-  var config = { url: 'ldap://fjos.local',
-                 baseDN: 'OU=Brukere,DC=fjos,DC=local',
-                 username: 'telefonbokbruker@fjos.local',
-                 password: 'Password!',
-                 attributes: {
-                                   user: [ 'mobile', 'title', 'company', 'department','physicalDeliveryOfficeName','ipPhone', 'sn', 'givenName', 'mail', 'userPrinicipalName','displayName' ]
-                                 }
+cron.schedule('0 0 * * *', function() {
+  console.log(Date() + ': Jobb starter');
+  var config = {
+    url: 'ldap://fjos.local',
+    baseDN: 'OU=Brukere,DC=fjos,DC=local',
+    username: 'telefonbokbruker@fjos.local',
+    password: 'Password!',
+    attributes: {
+      user: ['mobile', 'title', 'company', 'department', 'physicalDeliveryOfficeName', 'ipPhone', 'sn', 'givenName', 'mail', 'userPrinicipalName', 'displayName']
+    }
   }
 
   var ad = new ActiveDirectory(config);
@@ -18,29 +19,29 @@ var cron = require('node-cron');
 
   ad.getUsersForGroup(groupName, function(err, users) {
     if (err) {
-      console.log(Date()+': Skjedde en feil. Ikke kontakt med Active Directory');
-      console.log('ERROR: ' +JSON.stringify(err));
+      console.log(Date() + ': Skjedde en feil. Ikke kontakt med Active Directory');
+      console.log('ERROR: ' + JSON.stringify(err));
       return;
     }
 
 
-    if ((! users) || (users.length == 0)) console.log('No users found.');
+    if ((!users) || (users.length == 0)) console.log('No users found.');
     else {
       var outputFilename = 'bruker.json';
-      users.sort(function(a, b){
+      users.sort(function(a, b) {
         var x = a.givenName.toLowerCase();
         var y = b.givenName.toLowerCase();
         return x < y ? -1 : x > y ? 1 : 0;
       }).reverse();
 
       fs.writeFile('bruker.json', JSON.stringify(users), function(err) {
-          if(err) {
-            console.log(err);
-          } else {
-            console.log(Date()+': JSON er lagret til ' + outputFilename);
-          }
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(Date() + ': JSON er lagret til ' + outputFilename);
+        }
       });
-      console.log(Date()+': Jobb ferdig');
+      console.log(Date() + ': Jobb ferdig');
     }
   });
-//});
+});
