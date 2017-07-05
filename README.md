@@ -23,6 +23,19 @@ Helt enkel telefonbok som er bygget på NodeJS, Express, Cronjs, Bootstrap og AP
 
 
 <h2>Bruk</h2>
--adphonebook.js: Denne henter informasjon fra AD og legger det i JSON-filen. Følgende informasjon hentes fra AD: 'mobile', 'title', 'company', 'department','physicalDeliveryOfficeName','ipPhone', 'sn', 'givenName', 'mail', 'userPrinicipalName','displayName'. Denne må kjøres regelmessig etter endringer eller lignende i AD (kan skreduleres).
+
+- adphonebook.js: Denne henter informasjon fra AD og legger det i JSON-filen. Følgende informasjon hentes fra AD: 'mobile', 'title', 'company', 'department','physicalDeliveryOfficeName','ipPhone', 'sn', 'givenName', 'mail', 'userPrinicipalName','displayName'. Denne må kjøres regelmessig etter endringer eller lignende i AD (kan skreduleres).
 </br></br>
--web.js: her kjøres WEB-tjenesten fra (Express).
+
+- web.js: her kjøres WEB-tjenesten fra (Express).
+
+<h2>Framtidige endringer</h2>
+
+- Gjøre siden responsiv.
+
+
+<h2>APIs</h2>
+
+/sok - Viser alle objektene i json-format.
+
+/sok/<navn> - Finner objektene som har har displayname med navnet lagt til som argument i jsonformat.
