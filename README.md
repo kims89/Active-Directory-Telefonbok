@@ -38,4 +38,4 @@ Helt enkel telefonbok som er bygget på NodeJS, Express, Cronjs, Bootstrap og AP
 
 /sok - Viser alle objektene i json-format.
 
-/sok/<navn> - Finner objektene som har har displayname med navnet lagt til som argument i jsonformat.
+/sok/!navn! - Finner objektene som har har displayname med navnet lagt til som argument i jsonformat.
