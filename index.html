@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="nb">
 <head>
-  <script src="/js/jquery.min.js"></script>
+  <script src="/js/jquery/jquery.min.js"></script>
 <!-- Latest compiled and minified CSS -->
 
 
-<link rel="stylesheet" href="/js/bootstrap.min.css">
+<link rel="stylesheet" href="/js/bootstrap/bootstrap.min.css">
 
 <!-- Optional theme -->
 <link rel="stylesheet" href="/fig/css/font-awesome.min.css">
 <!-- Latest compiled and minified JavaScript -->
 
-<script src="/js/bootstrap.min.js"></script>
+<script src="/js/bootstrap/bootstrap.min.js"></script>
 
-<link rel="stylesheet" href="/js/easy-autocomplete.css">
-<link rel="stylesheet" href="/js/easy-autocomplete.themes.min.css">
-<script src="/js/jquery.easy-autocomplete.js"></script>
+<link rel="stylesheet" href="/js/Easy-autocomplete/easy-autocomplete.css">
+<link rel="stylesheet" href="/js/Easy-autocomplete/easy-autocomplete.themes.min.css">
+<script src="/js/Easy-autocomplete/jquery.easy-autocomplete.js"></script>
 <style>
 .eac-square input {
   background-image: url("fig/icon_search.png");
@@ -64,7 +64,7 @@ xmlhttp.onreadystatechange = function() {
     }
 };
 
-xmlhttp.open("GET", "/sok", true);
+xmlhttp.open("GET", "/search", true);
 xmlhttp.send();
 
 
@@ -110,7 +110,7 @@ function searchJson(data) {
 
       }
   };
-  xmlhttp.open("GET", "/sok/"+data, true);
+  xmlhttp.open("GET", "/search/"+data, true);
   xmlhttp.send();
 
 }
@@ -176,7 +176,7 @@ function searchJson(data) {
 
 
           var options = {
-            url: "/sok",
+            url: "/search",
 
             getValue: "displayName",
 

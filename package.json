@@ -18,9 +18,8 @@
   "homepage": "https://github.com/kims89/Active-Directory-Telefonbok#readme",
   "dependencies": {
     "activedirectory": "^0.7.2",
-    "express": "^4.15.3",
+    "express": "^4.16.2",
     "fs": "0.0.1-security",
-    "node-cron": "^1.2.0",
-    "path": "^0.12.7"
+    "node-cron": "^1.2.1"
   }
 }
