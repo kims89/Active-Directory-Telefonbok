@@ -25,7 +25,6 @@
 <script>
   $.getJSON("/search", function (result) {
     for (var i = 0; i < result.length; i++) {
-      console.log(i);
     }
   });
 
@@ -127,7 +126,7 @@
         </div>
           <input type="text" id="provider-json" style="width:100%;" placeholder="Søk etter navn..." />
       
-      <div class="ui link items">
+      <div class="ui items">
         <div class="item">
           <div class="image">
             <img src="https://semantic-ui.com/images/avatar/large/stevie.jpg">
@@ -135,18 +134,11 @@
           <div class="content">
             <div class="header">Stevie Feliciano</div>
             <div class="description">
-              <p>Stevie Feliciano is a
-                <a>library scientist</a> living in New York City. She likes to spend her time reading, running, and writing.</p>
-            </div>
-            <div class="description">
-              <p>Stevie Feliciano is a
-                <a>library scientist</a> living in New York City. She likes to spend her time reading, running, and writing.</p>
-            </div>
-            <div class="extra">
-              Additional Details
-            </div>
-            <div class="extra">
-              Additional Details
+              <p>Tittel: </p>
+              <p>Epostadresse: </p>
+              <p>Telefonr: </p>
+              <p>Sted: </p>
+              <p>Selskap: </p>
             </div>
           </div>
         </div>
