@@ -1,210 +1,228 @@
 <!DOCTYPE html>
 <html lang="nb">
-<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><head>
+  <link rel="stylesheet" type="text/css" href="/js/semanticui/dist/semantic.min.css">
+
   <script src="/js/jquery/jquery.min.js"></script>
-<!-- Latest compiled and minified CSS -->
+  <!-- Latest compiled and minified CSS -->
+  <script src="/js/semanticui/dist/semantic.min.js"></script>
 
+  <link rel="stylesheet" href="/js/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
 
-<link rel="stylesheet" href="/js/bootstrap/bootstrap.min.css">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="/fig/css/font-awesome.min.css">
+  <!-- Latest compiled and minified JavaScript -->
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="/fig/css/font-awesome.min.css">
-<!-- Latest compiled and minified JavaScript -->
+  <script src="/js/bootstrap/bootstrap.min.js"></script>
 
-<script src="/js/bootstrap/bootstrap.min.js"></script>
-
-<link rel="stylesheet" href="/js/Easy-autocomplete/easy-autocomplete.css">
-<link rel="stylesheet" href="/js/Easy-autocomplete/easy-autocomplete.themes.min.css">
-<script src="/js/Easy-autocomplete/jquery.easy-autocomplete.js"></script>
-<style>
-.eac-square input {
-  background-image: url("fig/icon_search.png");
-  background-repeat: no-repeat;
-  background-position: right 10px center;
-}
-</style>
+  <link rel="stylesheet" href="/js/Easy-autocomplete/easy-autocomplete.css">
+  <link rel="stylesheet" href="/js/Easy-autocomplete/easy-autocomplete.themes.min.css">
+  <script src="/js/Easy-autocomplete/jquery.easy-autocomplete.js"></script>
 </head>
 <script>
+  $.getJSON("/search", function (result) {
+    for (var i = 0; i < result.length; i++) {
+      console.log(i);
+    }
+  });
 
-
-var xmlhttp = new XMLHttpRequest();
-xmlhttp.onreadystatechange = function() {
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
-        var table = document.getElementById("myTable");
-        var jsonData = JSON.parse(this.responseText);
-        for (var i = 0; i < jsonData.length; i++) {
-            var counter = jsonData[i];
-            var row = table.insertRow(0);
-            var cell1 = row.insertCell(0);
-            var cell2 = row.insertCell(1);
-            var cell3 = row.insertCell(2);
-            var cell4 = row.insertCell(3);
-            var cell5 = row.insertCell(4);
-            var cell6 = row.insertCell(5);
-            var navnHTML = counter.displayName;
-            var kontaktHTML ="<a href='mailto:"+counter.mail+"'> <i class='fa fa-envelope' aria-hidden='true'></i></a> / <a href='sip:"+counter.mail+"'><i class='fa fa-skype' aria-hidden='true'></i></a>";
-            var tittelHTML = ""+counter.title;
-            var stedHTML = ""+counter.physicalDeliveryOfficeName;
-            var selskapHTML = ""+counter.department;
-            if (counter.ipPhone==undefined) {
-              var telefonHTML = ""+counter.mobile;
-            }
-            else {
-              var telefonHTML = ""+counter.mobile+" / "+counter.ipPhone;
-            }
-
-            cell1.innerHTML = navnHTML.replace("undefined","");
-            cell2.innerHTML = tittelHTML.replace("undefined","");
-            cell3.innerHTML = stedHTML.replace("undefined","");
-            cell4.innerHTML = selskapHTML.replace("undefined","");
-            cell5.innerHTML = kontaktHTML.replace("undefined","");
-            cell6.innerHTML = telefonHTML.replace("undefined","");
+      var table = document.getElementById("myTable");
+      var jsonData = JSON.parse(this.responseText);
+      for (var i = 0; i < jsonData.length; i++) {
+        var counter = jsonData[i];
+        var row = table.insertRow(0);
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
+        var cell4 = row.insertCell(3);
+        var cell5 = row.insertCell(4);
+        var cell6 = row.insertCell(5);
+        var navnHTML = counter.displayName;
+        var kontaktHTML = "<a href='mailto:" + counter.mail +
+          "'> <i class='fa fa-envelope' aria-hidden='true'></i></a> / <a href='sip:" + counter.mail +
+          "'><i class='fa fa-skype' aria-hidden='true'></i></a>";
+        var tittelHTML = "" + counter.title;
+        var stedHTML = "" + counter.physicalDeliveryOfficeName;
+        var selskapHTML = "" + counter.department;
+        if (counter.ipPhone == undefined) {
+          var telefonHTML = "" + counter.mobile;
+        } else {
+          var telefonHTML = "" + counter.mobile + " / " + counter.ipPhone;
         }
 
-    }
-};
-
-xmlhttp.open("GET", "/search", true);
-xmlhttp.send();
-
-function searchJson(data) {
-  var xmlhttp = new XMLHttpRequest();
-  xmlhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-          var table = document.getElementById("myTable");
-          var jsonData = JSON.parse(this.responseText);
-          var tableHeaderRowCount = 0;
-          var rowCount = table.rows.length;
-          for (var i = tableHeaderRowCount; i < rowCount; i++) {
-              table.deleteRow(tableHeaderRowCount);
-          }
-          for (var i = 0; i < jsonData.length; i++) {
-              var counter = jsonData[i];
-              var row = table.insertRow(0);
-              var cell1 = row.insertCell(0);
-              var cell2 = row.insertCell(1);
-              var cell3 = row.insertCell(2);
-              var cell4 = row.insertCell(3);
-              var cell5 = row.insertCell(4);
-              var cell6 = row.insertCell(5);
-              var navnHTML = counter.displayName;
-              var kontaktHTML ="<a href='mailto:"+counter.mail+"'> <i class='fa fa-envelope' aria-hidden='true'></i></a> / <a href='sip:"+counter.mail+"'><i class='fa fa-skype' aria-hidden='true'></i></a>";
-              var tittelHTML = ""+counter.title;
-              var stedHTML = ""+counter.physicalDeliveryOfficeName;
-              var selskapHTML = ""+counter.department;
-              if (counter.ipPhone==undefined) {
-                var telefonHTML = ""+counter.mobile;
-              }
-              else {
-                var telefonHTML = ""+counter.mobile+" / "+counter.ipPhone;
-              }
-
-              cell1.innerHTML = navnHTML.replace("undefined","");
-              cell2.innerHTML = tittelHTML.replace("undefined","");
-              cell3.innerHTML = stedHTML.replace("undefined","");
-              cell4.innerHTML = selskapHTML.replace("undefined","");
-              cell5.innerHTML = kontaktHTML.replace("undefined","");
-              cell6.innerHTML = telefonHTML.replace("undefined","");
-          }
-
+        cell1.innerHTML = navnHTML.replace("undefined", "");
+        cell2.innerHTML = tittelHTML.replace("undefined", "");
+        cell3.innerHTML = stedHTML.replace("undefined", "");
+        cell4.innerHTML = selskapHTML.replace("undefined", "");
+        cell5.innerHTML = kontaktHTML.replace("undefined", "");
+        cell6.innerHTML = telefonHTML.replace("undefined", "");
       }
+
+    }
   };
-  xmlhttp.open("GET", "/search/"+data, true);
+
+  xmlhttp.open("GET", "/search", true);
   xmlhttp.send();
 
-}
-
-
-
-</script>
-<body>
-</br>
-  <div class="container">
-    <div class="page-header">
-        <h1>Telefonkatalog</h1>
-        <p class="lead">AD-integrert telefonbok.</p>
-      </div>
-<div class="row">
-<div class="col-md-5">
-
-
-<div class="well">
-    <input type="text" id="provider-json" class="form-control" placeholder="Søk etter navn..." />
-</div>
-  </div>
-
-
-
-
-</div>
-
-
-  <div class="table-responsive">
-  </br>
-            <table id="tableId" class="table table-striped">
-              <thead>
-                <tr>
-                  <th>Navn</th>
-                  <th>Tittel</th>
-                  <th>Sted</th>
-                  <th>Selskap</th>
-                  <th><i class="fa fa-id-card" aria-hidden="true"></i></th>
-                  <th><i class="fa fa-phone" aria-hidden="true"></i></th>
-                </tr>
-              </thead>
-              <tbody id="myTable">
-              </tbody>
-            </table>
-  </div>
-  </div><!-- /.container -->
-          <script>
-
-
-          function sokEnter() {
-              var x = document.getElementById("provider-json").value;
-              searchJson(x);
+  function searchJson(data) {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        var table = document.getElementById("myTable");
+        var jsonData = JSON.parse(this.responseText);
+        var tableHeaderRowCount = 0;
+        var rowCount = table.rows.length;
+        for (var i = tableHeaderRowCount; i < rowCount; i++) {
+          table.deleteRow(tableHeaderRowCount);
+        }
+        for (var i = 0; i < jsonData.length; i++) {
+          var counter = jsonData[i];
+          var row = table.insertRow(0);
+          var cell1 = row.insertCell(0);
+          var cell2 = row.insertCell(1);
+          var cell3 = row.insertCell(2);
+          var cell4 = row.insertCell(3);
+          var cell5 = row.insertCell(4);
+          var cell6 = row.insertCell(5);
+          var navnHTML = counter.displayName;
+          var kontaktHTML = "<a href='mailto:" + counter.mail +
+            "'> <i class='fa fa-envelope' aria-hidden='true'></i></a> / <a href='sip:" + counter.mail +
+            "'><i class='fa fa-skype' aria-hidden='true'></i></a>";
+          var tittelHTML = "" + counter.title;
+          var stedHTML = "" + counter.physicalDeliveryOfficeName;
+          var selskapHTML = "" + counter.department;
+          if (counter.ipPhone == undefined) {
+            var telefonHTML = "" + counter.mobile;
+          } else {
+            var telefonHTML = "" + counter.mobile + " / " + counter.ipPhone;
           }
 
-          document.getElementById("provider-json")
-              .addEventListener("keyup", function(event) {
-              event.preventDefault();
-              if (event.keyCode == 13) {
-                  sokEnter();
-              }
-          });
+          cell1.innerHTML = navnHTML.replace("undefined", "");
+          cell2.innerHTML = tittelHTML.replace("undefined", "");
+          cell3.innerHTML = stedHTML.replace("undefined", "");
+          cell4.innerHTML = selskapHTML.replace("undefined", "");
+          cell5.innerHTML = kontaktHTML.replace("undefined", "");
+          cell6.innerHTML = telefonHTML.replace("undefined", "");
+        }
+
+      }
+    };
+    xmlhttp.open("GET", "/search/" + data, true);
+    xmlhttp.send();
+
+  }
+</script>
+
+<body>
+  <div class="ui main text container">
+        <div class="page-header">
+          <h1>Ansatte</h1>
+          <p class="lead">AD-integrert telefonbok.</p>
+        </div>
+          <input type="text" id="provider-json" style="width:100%;" placeholder="Søk etter navn..." />
+      
+      <div class="ui link items">
+        <div class="item">
+          <div class="image">
+            <img src="https://semantic-ui.com/images/avatar/large/stevie.jpg">
+          </div>
+          <div class="content">
+            <div class="header">Stevie Feliciano</div>
+            <div class="description">
+              <p>Stevie Feliciano is a
+                <a>library scientist</a> living in New York City. She likes to spend her time reading, running, and writing.</p>
+            </div>
+            <div class="description">
+              <p>Stevie Feliciano is a
+                <a>library scientist</a> living in New York City. She likes to spend her time reading, running, and writing.</p>
+            </div>
+            <div class="extra">
+              Additional Details
+            </div>
+            <div class="extra">
+              Additional Details
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="image">
+            <img src="https://semantic-ui.com/images/avatar/large/stevie.jpg">
+          </div>
+          <div class="content">
+            <div class="header">Veronika Ossi</div>
+            <div class="description">
+              <p>Stevie Feliciano is a
+                <a>library scientist</a> living in New York City. She likes to spend her time reading, running, and writing.</p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="image">
+            <img src="https://semantic-ui.com/images/avatar/large/stevie.jpg">
+          </div>
+          <div class="content">
+            <div class="header">Jenny Hess</div>
+            <div class="description">
+              <p>Stevie Feliciano is a
+                <a>library scientist</a> living in New York City. She likes to spend her time reading, running, and writing.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  <script>
+    function sokEnter() {
+      var x = document.getElementById("provider-json").value;
+      searchJson(x);
+    }
+
+    document.getElementById("provider-json")
+      .addEventListener("keyup", function (event) {
+        event.preventDefault();
+        if (event.keyCode == 13) {
+          sokEnter();
+        }
+      });
 
 
-          var options = {
-            url: "/search",
+    var options = {
+      url: "/search",
 
-            getValue: "displayName",
+      getValue: "displayName",
 
 
 
-            list: {
-              match: {
-                enabled: true
-              },showAnimation: {
-			          type: "fade"
-		          },
-		          hideAnimation: {
-			          type: "fade"
-		          },
-              onClickEvent: function() {
-                var value = $("#provider-json").getSelectedItemData().displayName;
-                searchJson(value);
-              },
-              onChooseEvent: function() {
-                var value = $("#provider-json").getSelectedItemData().displayName;
-                searchJson(value);
-              }
+      list: {
+        match: {
+          enabled: true
+        },
+        showAnimation: {
+          type: "fade"
+        },
+        hideAnimation: {
+          type: "fade"
+        },
+        onClickEvent: function () {
+          var value = $("#provider-json").getSelectedItemData().displayName;
+          searchJson(value);
+        },
+        onChooseEvent: function () {
+          var value = $("#provider-json").getSelectedItemData().displayName;
+          searchJson(value);
+        }
 
-            },
-            theme: "square"
-          };
+      },
+      theme: "square"
+    };
 
-          $("#provider-json").easyAutocomplete(options);
-
-          </script>
+    $("#provider-json").easyAutocomplete(options);
+  </script>
 </body>
+
 </html>
