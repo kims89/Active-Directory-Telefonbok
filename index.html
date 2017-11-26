@@ -10,7 +10,6 @@
   <script src="/js/semanticui/dist/semantic.min.js"></script>
 
   <link rel="stylesheet" href="/js/bootstrap/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
 
   <!-- Optional theme -->
   <link rel="stylesheet" href="/fig/css/font-awesome.min.css">
@@ -23,51 +22,43 @@
   <script src="/js/Easy-autocomplete/jquery.easy-autocomplete.js"></script>
 </head>
 <script>
+function setNullString(Str){
+  if (!Str) {
+    console.log(Str);
+    return " ";
+}
+else {
+  console.log(Str);
+  return Str;
+}
+}
+
   $.getJSON("/search", function (result) {
+    var inputHTML = "";
     for (var i = 0; i < result.length; i++) {
+      var navn = result[i].displayName;
+      navn.replace("undefined", "Ikke oppgitt");
+      var tittel = result[i].title;
+      tittel.replace("undefined", "");
+inputHTML += "<div class=\"item\">";
+inputHTML += "          <div class=\"image\">";
+inputHTML += "            <img src=\"https:\/\/semantic-ui.com\/images\/avatar\/large\/stevie.jpg\">";
+inputHTML += "          <\/div>";
+inputHTML += "          <div class=\"content\">";
+inputHTML += "            <div class=\"header\">"+navn+"<\/div>";
+inputHTML += "            <div class=\"description\">";
+inputHTML += "              <p>Tittel: "+tittel+"<\/p>";
+inputHTML += "              <p>Epostadresse: "+result[i].mail+"<\/p>";
+inputHTML += "              <p>Telefonr: "+etNullString(result[i].mobile)+"<\/p>";
+inputHTML += "              <p>Sted: "+result[i].physicalDeliveryOfficeName+"<\/p>";
+inputHTML += "              <p>Selskap: "+result[i].department+"<\/p>";
+inputHTML += "            <\/div>";
+inputHTML += "          <\/div>";
+inputHTML += "        <\/div>";
+
     }
+    $('#itemsAns').html(inputHTML);
   });
-
-  var xmlhttp = new XMLHttpRequest();
-  xmlhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      var table = document.getElementById("myTable");
-      var jsonData = JSON.parse(this.responseText);
-      for (var i = 0; i < jsonData.length; i++) {
-        var counter = jsonData[i];
-        var row = table.insertRow(0);
-        var cell1 = row.insertCell(0);
-        var cell2 = row.insertCell(1);
-        var cell3 = row.insertCell(2);
-        var cell4 = row.insertCell(3);
-        var cell5 = row.insertCell(4);
-        var cell6 = row.insertCell(5);
-        var navnHTML = counter.displayName;
-        var kontaktHTML = "<a href='mailto:" + counter.mail +
-          "'> <i class='fa fa-envelope' aria-hidden='true'></i></a> / <a href='sip:" + counter.mail +
-          "'><i class='fa fa-skype' aria-hidden='true'></i></a>";
-        var tittelHTML = "" + counter.title;
-        var stedHTML = "" + counter.physicalDeliveryOfficeName;
-        var selskapHTML = "" + counter.department;
-        if (counter.ipPhone == undefined) {
-          var telefonHTML = "" + counter.mobile;
-        } else {
-          var telefonHTML = "" + counter.mobile + " / " + counter.ipPhone;
-        }
-
-        cell1.innerHTML = navnHTML.replace("undefined", "");
-        cell2.innerHTML = tittelHTML.replace("undefined", "");
-        cell3.innerHTML = stedHTML.replace("undefined", "");
-        cell4.innerHTML = selskapHTML.replace("undefined", "");
-        cell5.innerHTML = kontaktHTML.replace("undefined", "");
-        cell6.innerHTML = telefonHTML.replace("undefined", "");
-      }
-
-    }
-  };
-
-  xmlhttp.open("GET", "/search", true);
-  xmlhttp.send();
 
   function searchJson(data) {
     var xmlhttp = new XMLHttpRequest();
@@ -126,46 +117,7 @@
         </div>
           <input type="text" id="provider-json" style="width:100%;" placeholder="Søk etter navn..." />
       
-      <div class="ui items">
-        <div class="item">
-          <div class="image">
-            <img src="https://semantic-ui.com/images/avatar/large/stevie.jpg">
-          </div>
-          <div class="content">
-            <div class="header">Stevie Feliciano</div>
-            <div class="description">
-              <p>Tittel: </p>
-              <p>Epostadresse: </p>
-              <p>Telefonr: </p>
-              <p>Sted: </p>
-              <p>Selskap: </p>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="image">
-            <img src="https://semantic-ui.com/images/avatar/large/stevie.jpg">
-          </div>
-          <div class="content">
-            <div class="header">Veronika Ossi</div>
-            <div class="description">
-              <p>Stevie Feliciano is a
-                <a>library scientist</a> living in New York City. She likes to spend her time reading, running, and writing.</p>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="image">
-            <img src="https://semantic-ui.com/images/avatar/large/stevie.jpg">
-          </div>
-          <div class="content">
-            <div class="header">Jenny Hess</div>
-            <div class="description">
-              <p>Stevie Feliciano is a
-                <a>library scientist</a> living in New York City. She likes to spend her time reading, running, and writing.</p>
-            </div>
-          </div>
-        </div>
+      <div class="ui items" id="itemsAns">
       </div>
   </div>
   <script>
